@@ -1,0 +1,28 @@
+Download the partA.csv file from Brightspace and answer the following questions:
+
+1. What changes would be required to perform the first normalization?
+
+a.     The original table violates the 1NF principle because it contains repeating groups in the last four columns: “Experiment1_name”, “Experiment2_name”, “Experiment1_Value”, and “Experiment2_Value”. To perform the first normalization, we would need to pivot those columns into rows and then drop the numbers. The table needs to continue to meet the other conditions: each cell contains an atomic value and each row is unique.
+
+
+2. What changes would be required to perform the second normalization?
+
+a.     To normalize the table in First Normal Form to Second Normal Form, we would need to separate sets of value that apply to multiple records to store them into distinct tables. For each group of related records, we would need to provide a primary key. Our 1NF table should be split into three separate tables:
+(1) a Gene Background table with the information of the Gene Name, Alias, Alias2, Annotation, Chromosome, Start, End, Strand, and a primary key (GeneID),
+
+(2) an Experiment table with the experiment types from the Experiment1_Name and Experiment2_Name columns, and a primary key (ExpID),
+
+(3) a Data table with experiment values from the Experiment1_Value and Experiment2_Value columns and a primary key (DataID) as well as two foreign keys linking the related Gene Background and Experiment tables with their respective primary keys, GeneID and ExperimentID.
+
+
+
+3. What changes would be required to perform the third normalization step?
+
+a. Before performing the third normalization step, we need to confirm our 2NF design meets all its criteria. Upon doing so, we can move from 2NF to 3NF by eliminating fields that are indirectly related to or independent of our established primary keys.
+
+A gene is defined by its locus, a discrete region of one’s genome. It is through the separate process of gene annotation that genes are ascribed their function, name and features. Gene aliases are related to the gene name, but are not specific to its location, as alias can refer to only a part of the gene or a specific transcript. To distinguish a gene’s physical characteristics from its functional attributes that contribute to its naming and annotation, we should split the Gene Background table into two:
+
+(1)  a Gene Identity table storing Gene Name, Alias, Alias2, and Annotation columns, while retaining GeneID as its primary key,
+
+(2)  a Gene Coordinates table with the Chromosome, Start, End, and Strand values, including a new primary key and GeneID as a foreign key.
+    
